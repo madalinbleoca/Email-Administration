@@ -9,23 +9,27 @@ public class Email {
     private String password;
     private int defaultPasswordLength = 6;
     private String department;
-    private Long mailboxCapacity;
+    private String email;
+    private String alternateEmail;
+    private String companySuffix = "dandelyon.com";
+    private Long mailboxCapacity = 5000L;
 
     public Email(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        System.out.println("EMAIL CREATED FOR: " + firstName + " " + lastName);
 
         this.department = setDepartment();
-        System.out.println("Department: " + this.department);
 
         this.password = randomPassword(defaultPasswordLength);
         System.out.println("Your password is: " + this.password);
+
+        email = firstName.toLowerCase() + "_" + lastName.toLowerCase() +
+                "@" + department + "." + companySuffix;
     }
 
 
     private String setDepartment() {
-        System.out.print("Enter the department: \n1 for Sales \n2 for Development \n3 for Accounting \n0 for none \nSelect department code: ");
+        System.out.print("New employee: " + firstName + " Enter the department: \n1 for Sales \n2 for Development \n3 for Accounting \n0 for none \nSelect department code: ");
         Scanner scanner = new Scanner(System.in);
         int depChoice = scanner.nextInt();
 
@@ -48,5 +52,44 @@ public class Email {
             password[i] = passwordSet.charAt(rand);
         }
         return new String(password);
+    }
+
+
+    public void setMailboxCapacity(Long capacity) {
+        this.mailboxCapacity = capacity;
+    }
+
+    public void setAlternateEmail(String alternateEmail) {
+        this.alternateEmail = alternateEmail;
+    }
+
+    public void changePassword(String password) {
+        this.password = password;
+    }
+
+    public String getAlternateEmail() {
+        return alternateEmail;
+    }
+
+    public Long getMailboxCapacity() {
+        return mailboxCapacity;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String showInfo() {
+        return "DISPLAY NAME: " + firstName + " " +lastName +
+                "\nCOMPANY EMAIL: " + email +
+                "\nMAILBOX CAPACITY: " + mailboxCapacity + "mb";
     }
 }
